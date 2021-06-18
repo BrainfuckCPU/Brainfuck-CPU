@@ -1,17 +1,19 @@
 package io.github.chase22.brainfuck.cpu.components
 
 import io.github.chase22.brainfuck.cpu.CPU
+import io.github.chase22.brainfuck.cpu.InstructionSet
+import io.github.chase22.brainfuck.cpu.InstructionSet.*
 
-class ControlLogic() {
+class ControlLogic {
     fun run() {
         while(true) {
-            when (CPU.programMemory.currentValue.toInt()) {
-                2 -> increment()
-                3 -> decrement()
-                4 -> shiftRight()
-                5 -> shiftLeft()
-                6 -> output()
-                7 -> input()
+            when (InstructionSet.values[CPU.programMemory.currentValue.value]) {
+                PLUS -> increment()
+                MINUS -> decrement()
+                NEXT -> shiftLeft()
+                PREVIOUS -> shiftRight()
+                OUTPUT -> output()
+                INPUT -> input()
                 else -> break
             }
             CPU.programCounter.countUp()
